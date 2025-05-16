@@ -1,5 +1,11 @@
+export const config = {
+  api: {
+    bodyParser: true,
+  },
+};
+
 export default async function handler(req, res) {
-  // Handle preflight (CORS precheck)
+  // Handle preflight
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -14,8 +20,7 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
   const apiKey = process.env.OPENAI_API_KEY;
-  const body = await req.json(); // Parse JSON body
-  const { message } = body;
+  const { message } = req.body;
 
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
