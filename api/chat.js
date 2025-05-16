@@ -36,8 +36,10 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
+    // ✅ Log full response to Vercel for debug
+    console.log("🧠 OpenAI response:", JSON.stringify(data, null, 2));
+
     if (!data.choices || !data.choices.length) {
-      console.error("❌ OpenAI returned no choices", data);
       return res.status(200).json({ reply: "Sorry, I couldn't get a response from the AI." });
     }
 
@@ -45,7 +47,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ reply });
 
   } catch (err) {
-    console.error("❌ Error from OpenAI API", err);
+    console.error("❌ OpenAI API error:", err);
     return res.status(500).json({ reply: "Something went wrong on the server." });
   }
 }
