@@ -1,5 +1,11 @@
 export default async function handler(req, res) {
   const apiKey = process.env.OPENAI_API_KEY;
+  console.log("✅ OPENAI_API_KEY exists?", !!apiKey); // temporary check
+
+  const { message } = req.body;
+  
+export default async function handler(req, res) {
+  const apiKey = process.env.OPENAI_API_KEY;
   const { message } = req.body;
 
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
